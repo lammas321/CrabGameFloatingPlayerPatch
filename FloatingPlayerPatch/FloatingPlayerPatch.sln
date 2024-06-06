@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FloatingPlayerPatch", "FloatingPlayerPatch.csproj", "{383840CB-D2BE-4D60-9823-2801FEC70A4B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6B922B73-99ED-4763-B48F-EF63BFFE133D}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Client|Any CPU = Client|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{383840CB-D2BE-4D60-9823-2801FEC70A4B}.Client|Any CPU.ActiveCfg = Client|Any CPU
+		{383840CB-D2BE-4D60-9823-2801FEC70A4B}.Client|Any CPU.Build.0 = Client|Any CPU
+		{383840CB-D2BE-4D60-9823-2801FEC70A4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{383840CB-D2BE-4D60-9823-2801FEC70A4B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FB2255D1-41E3-488A-92C6-9B38A4012913}
+	EndGlobalSection
+EndGlobal
