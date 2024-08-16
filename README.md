@@ -15,9 +15,9 @@ Now that I've gone over why floating players happen, I just want to say first of
 Essentially all the mod does is take the positions and rotations the clients send to you as the host, and then send those positions and rotations back out to all clients. Though this seems like a foolproof method of fixing the floating player issue, there are some caveats:
 1. This does not actually fix the root issue of connections not being established between clients, but merely works around it with clients that were able to establish a connection with you as the host and actually get in the lobby. Some players *may* still have problems connecting and have to wait a while to join the lobby, meaning reaching player counts any higher than 30 or so *could* be difficult to reach
 2. Clients that have established a secure connection will be receiving 2 of the same/similar position packets at slightly offset times due to ping. This *could* lead to players seeming to stutter back and forth at higher pings and lead to a slightly worse experience, may be especially apparent when playing close proximity or chase game modes like Tag
-3. If you are afk or distant at the start or edges of large maps like Sussy Slope and several clients haven't established connections with each other, players at long distances will see players moving/teleporting several units at a time, which will also look awkward and *could* lead to flinging. As the host, it is in your best interest to be positioned closer to the center of the map or near the most players so that the experience of players doesn't feel as laggy
+3. If you are afk or distant at the start or edges of large maps like Sussy Slope and several clients haven't established connections with each other, players at long distances will see players moving/teleporting several units at a time, which will also look awkward and *could* lead to flinging. As the host, it is in your best interest to be positioned closer to the center of the map or near the most players so that the experience of players doesn't feel as laggy. Clients with the mod will send their position to the host most frequently to try and get around this issue, but this requires the client to have the mod, and not all clients will
 4. You will technically be using more network bandwidth using this mod, and it will grow exponentially the more players there are in your lobby. If you have slow or limited internet, I'd recommend sticking to hosting smaller lobbies and not using this mod, or only joining lobbies and not hosting them
-5. This *could* amplify the effect of cheaters using player flinging cheats, due to caveat 1 where players may seem to stutter back and forth, if a cheater flings a one or a couple players, those players could be more likely of flinging other nearby players as well
+5. This *could* amplify the effect of cheaters using player flinging cheats, due to caveat 1 where players may seem to stutter back and forth, if a cheater flings one or a couple players, those players could be more likely of flinging other nearby players as well
 
 I do hope this mod can bring back some life to Crab Game, I find it very fun to play, and it's even better when played with a lobby of 30+ randoms lol
 
@@ -26,7 +26,8 @@ TLDR:
 1. This mod does not fix the root issue causing the floating players, only working around the problem
 2. Clients may see other players slightly or even majorly stuttering back and forth when moving with high pings or bad connections
 3. As the host, you should aim to be near the majority of or as many players as you can, usually the center of the map
-4. This mod will end up using more bandwith than you usually do, exponentially with higher player counts even
-5. The effects of cheater's fling cheats *could* be amplified, and catching them will by default be harder with more players to rule out at larger lobby sizes
+4. Clients with the mod will not need to be near the host in game
+5. This mod will end up using more bandwith than you usually do, exponentially with higher player counts even
+6. The effects of cheater's fling cheats *could* be amplified, and catching them will by default be harder with more players to rule out at larger lobby sizes
 
 Happy hosting! :D
