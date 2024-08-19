@@ -17,6 +17,8 @@ global using GeneralUiButton = MonoBehaviourPublicIPointerEnterHandlerIEventSyst
 global using GeneralUiHoverEffect = MonoBehaviourPublicIPointerEnterHandlerIEventSystemHandlerIPointerExitHandlerTrteSiBoVeSiUnique;
 global using GeneralUiTextAlignment = MonoBehaviourPublicTeteRereUnique;
 
+global using GameUiBackButton = MonoBehaviourPublicBubaUnique;
+
 global using GeneralUiInventory = MonoBehaviourPublicGaitTrcoObplmeObTenIUnique;
 global using GeneralUiInventorySortType = MonoBehaviourPublicGaitTrcoObplmeObTenIUnique.EnumNPublicSealedvaDeRa3vUnique;
 global using GeneralUiInventoryTabs = MonoBehaviourPublicGaseRabtCoidseCoBousUnique;
@@ -124,8 +126,6 @@ global using GameUiInventory = MonoBehaviourPublicRepoTrinObCacaInObpaUnique;
 global using GameUiInventoryItem = MonoBehaviourPublicCacaTeslnaTeRaimseRaUnique;
 global using GameUiDebugNet = MonoBehaviourPublicTefpGacoBoSiBoLi1BoUnique;
 global using GameUiSharedObjectDebugManager = MonoBehaviourPublicTeteVoUpVoVoVoVoVoVo0;
-
-global using GameUiPlayerList = MonoBehaviourPublicBubaUnique;
 
 global using GameUiStation = MonoBehaviourPublicObshGacuInObUnique;
 global using GameUiStationBuyWindow = MonoBehaviourPublicGaitshGataTrbaGataTrUnique;
