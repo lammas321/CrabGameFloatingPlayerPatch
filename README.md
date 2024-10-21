@@ -42,3 +42,11 @@ This way, if the host has the mod, you won't appear as laggy to nearby players i
 This will make you only establish a connection with the host, so long as they are sharing that they have the mod.
 This *may* allow you to join the game a bit faster (as you won't have to establish a bunch of pointless connections, though this is untested/unconfirmed) and will make you not send any packets to any other players besides the host.
 This will also only make you accept player position and rotation packets from the host, meaning that no one can lie to you about their positon.
+
+
+# Installing BepInEx and FloatingPlayerPatch
+1. Download (BepInEx_UnityIL2CPP_x64_ec79ad0_6.0.0-be.577.zip)[https://builds.bepinex.dev/projects/bepinex_be/577/BepInEx_UnityIL2CPP_x64_ec79ad0_6.0.0-be.577.zip] from [BepInEx Bleeding Edge Builds](https://builds.bepinex.dev/projects/bepinex_be)
+2. Extract/unzip the file and put its contents in your "SteamLibrary/steamapps/common/Crab Game/" directory (the "BepInEx" and "mono" folders with the "doorstop_config.ini" and "winhttp.dll" files).
+3. Run the game once until you reach the loading screen, then close it.
+4. Download the latest version of FloatingPlayerPatch from [Releases](https://github.com/lammas321/CrabGameFloatingPlayerPatch/releases) and move it into the new "BepInEx/plugins/" directory.
+5. You can now play with FloatingPlayerPatch! This will have also created the config in the "BepInEx/config/" directory called "lammas123.FloatingPlayerPatch.cfg" which you can then configure as you want.
