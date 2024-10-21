@@ -31,3 +31,14 @@ TLDR:
 6. The effects of cheater's fling cheats *could* be amplified, and catching them will by default be harder with more players to rule out at larger lobby sizes
 
 Happy hosting! :D
+
+
+# New as of v1.2.0
+## Smoother Movement (Client Side)
+This will make you treat the host as if they're always nearby, meaning that you'll send them the same frequency of position and rotation updates, regardless of how far away you are.
+This way, if the host has the mod, you won't appear as laggy to nearby players if the host is far away. Others without the mod that are nearby will still appear laggy to you.
+
+## Only Establish Connection with Host (Client Side, Opt-in via Config)
+This will make you only establish a connection with the host, so long as they are sharing that they have the mod.
+This *may* allow you to join the game a bit faster (as you won't have to establish a bunch of pointless connections, though this is untested/unconfirmed) and will make you not send any packets to any other players besides the host.
+This will also only make you accept player position and rotation packets from the host, meaning that no one can lie to you about their positon.
