@@ -2,11 +2,11 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>FloatingPlayerPatch</AssemblyName>
-    <Version>1.1.1</Version>
+    <Version>1.2.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <DebugType>embedded</DebugType>
-    <Configurations>Client;Release</Configurations>
+    <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
   
   <ItemGroup>
@@ -46,7 +46,7 @@
       <HintPath>S:\SteamLibrary\steamapps\common\Crab Game\BepInEx\unhollowed\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="ModList">
-      <HintPath>C:\Users\lamma\source\repos\Crab Game\ModList\bin\Release\netstandard2.1\ModList.dll</HintPath>
+      <HintPath>C:\Users\lamma\source\repos\Crab Game\General\ModList\bin\Release\netstandard2.1\ModList.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>
