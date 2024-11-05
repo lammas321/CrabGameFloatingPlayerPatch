@@ -50,3 +50,5 @@ This will also only make you accept player position and rotation packets from th
 3. Run the game once until you reach the loading screen, then close it.
 4. Download the latest version of FloatingPlayerPatch from [Releases](https://github.com/lammas321/CrabGameFloatingPlayerPatch/releases) and move it into the new "BepInEx/plugins/" directory.
 5. You can now run the game again and play with FloatingPlayerPatch! This will have also created the config in the "BepInEx/config/" directory called "lammas123.FloatingPlayerPatch.cfg" which you can then configure as you want.
+
+### [Installation Video by Storm](https://youtu.be/2dnf7JWObh8?si=2fVu8j1YZMoEdsgo)
