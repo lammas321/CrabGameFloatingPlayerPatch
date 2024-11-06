@@ -48,6 +48,7 @@ This will also only make you accept player position and rotation packets from th
 1. Download [BepInEx_UnityIL2CPP_x64_ec79ad0_6.0.0-be.577.zip](https://builds.bepinex.dev/projects/bepinex_be/577/BepInEx_UnityIL2CPP_x64_ec79ad0_6.0.0-be.577.zip) from [BepInEx Bleeding Edge Builds](https://builds.bepinex.dev/projects/bepinex_be).
 2. Extract/unzip the file and put its contents in your "SteamLibrary/steamapps/common/Crab Game/" directory (the "BepInEx" and "mono" folders with the "doorstop_config.ini" and "winhttp.dll" files).
 3. Run the game once, it should take a bit longer than usual. Once you reach the main menu, you can close the game and check if there are now multiple folders besides "core" in the "BepInEx" folder.
+
 3a. If the only folder present is "core", then you need to download the [C++ Redistributable](https://aka.ms/vs/17/release/vc_redist.x64.exe) installer and run it. This will make door stop able to work and allow BepInEx to do its thing.
 5. Download the latest version of FloatingPlayerPatch from [Releases](https://github.com/lammas321/CrabGameFloatingPlayerPatch/releases) and move it into the new "BepInEx/plugins/" directory.
 6. You can now run the game again and play with FloatingPlayerPatch! This will have also created the config in the "BepInEx/config/" directory called "lammas123.FloatingPlayerPatch.cfg" which you can then configure as you want.
