@@ -3,6 +3,8 @@
 ### This is a long read, but I recommend reading through it or at least reading the TLDR at the end to give players joining your lobbies the best experience.
 ### Installation instructions at the bottom of this page!
 
+Need help or wanna reach out? Do so on the Discord! https://discord.gg/jBGMZqndT3
+
 ## What started the connection issues
 Some time ago (around March 2024) after an update to the way Steam handles Peer2Peer connections (SteamP2P), Crab Game lobbies with around 12 players or more started seeing players just floating in place for the entirety of games, never moving or rotating, only punching and using items. The reason for this is whatever that Steam P2P update did made it more difficult to establish P2P connections with players, especially with those located further away or when the lobby has larger player counts. Personally, I suspect that Steam implemented some form of rate limit on how many connections can be established within a period of time, which would explain why a ton of players joining at once, and larger lobbies in general, have these issues.
 
