@@ -12,7 +12,7 @@ namespace FloatingPlayerPatch
         //   Anti Bepinex detection (Thanks o7Moon: https://github.com/o7Moon/CrabGame.AntiAntiBepinex)
         [HarmonyPatch(typeof(EffectManager), nameof(EffectManager.Method_Private_Void_GameObject_Boolean_Vector3_Quaternion_0))] // Ensures effectSeed is never set to 4200069 (if it is, modding has been detected)
         [HarmonyPatch(typeof(LobbyManager), nameof(LobbyManager.Method_Private_Void_0))] // Ensures connectedToSteam stays false (true means modding has been detected)
-        // [HarmonyPatch(typeof(SnowSpeedModdingDetector), nameof(SnowSpeedModdingDetector.Method_Private_Void_0))] // Would ensure snowSpeed is never set to Vector3.zero (though it is immediately set back to Vector3.one due to an accident on Dani's part lol)
+        // [HarmonyPatch(typeof(Deobf_MenuSnowSpeedModdingDetector), nameof(Deobf_MenuSnowSpeedModdingDetector.Method_Private_Void_0))] // Would ensure snowSpeed is never set to Vector3.zero (though it is immediately set back to Vector3.one due to an accident on Dani's part lol)
         [HarmonyPrefix]
         internal static bool PreBepinexDetection()
             => false;
@@ -42,19 +42,19 @@ namespace FloatingPlayerPatch
         // send them the same frequency of position and rotation updates, regardless of how far
         // away you are. This way, you won't appear as laggy to nearby players if the host is
         // far away. Others without the mod that are nearby will still appear laggy to you.
-        [HarmonyPatch(typeof(PlayerCommunication), nameof(PlayerCommunication.Method_Private_Void_Vector3_EnumNPublicSealedvaClMeFaAn5vUnique_0))]
+        [HarmonyPatch(typeof(PlayerServerCommunication), nameof(PlayerServerCommunication.Method_Private_Void_Vector3_EnumNPublicSealedvaClMeFaAn5vUnique_0))]
         [HarmonyPrefix]
-        internal static void PrePlayerCommunicationUpdatePosition(PlayerCommunication __instance)
+        internal static void PrePlayerCommunicationUpdatePosition(PlayerServerCommunication __instance)
         {
             if (!SteamManager.Instance.IsLobbyOwner())
-                __instance.idToDistance[SteamManager.Instance.field_Private_CSteamID_1.m_SteamID] = PlayerCommunicationDistance.Close;
+                __instance.idToDistance[SteamManager.Instance.field_Private_CSteamID_1.m_SteamID] = PlayerServerCommunication_RenderDistance.Close;
         }
-        [HarmonyPatch(typeof(PlayerCommunication), nameof(PlayerCommunication.Method_Private_Void_Single_Single_EnumNPublicSealedvaClMeFaAn5vUnique_0))]
+        [HarmonyPatch(typeof(PlayerServerCommunication), nameof(PlayerServerCommunication.Method_Private_Void_Single_Single_EnumNPublicSealedvaClMeFaAn5vUnique_0))]
         [HarmonyPrefix]
-        internal static void PrePlayerCommunicationUpdateRotation(PlayerCommunication __instance)
+        internal static void PrePlayerCommunicationUpdateRotation(PlayerServerCommunication __instance)
         {
             if (!SteamManager.Instance.IsLobbyOwner())
-                __instance.idToDistance[SteamManager.Instance.field_Private_CSteamID_1.m_SteamID] = PlayerCommunicationDistance.Close;
+                __instance.idToDistance[SteamManager.Instance.field_Private_CSteamID_1.m_SteamID] = PlayerServerCommunication_RenderDistance.Close;
         }
 
 
@@ -63,7 +63,7 @@ namespace FloatingPlayerPatch
         [HarmonyPatch(typeof(LobbyManager), nameof(LobbyManager.StartPracticeLobby))]
         [HarmonyPostfix]
         internal static void PostLobbyManagerStartLobby()
-            => SteamMatchmaking.SetLobbyData(SteamManager.Instance.currentLobby, $"lammas123.{MyPluginInfo.PLUGIN_GUID}", "1");
+            => SteamMatchmaking.SetLobbyData(SteamManager.Instance.currentLobby, MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_VERSION);
     }
 
     internal static class OnlyConnectToHostPatches
@@ -95,7 +95,7 @@ namespace FloatingPlayerPatch
             }
         }
         internal static bool ShouldSend(ulong clientId)
-            => SteamManager.Instance.IsLobbyOwner() || SteamMatchmaking.GetLobbyData(SteamManager.Instance.currentLobby, $"lammas123.{MyPluginInfo.PLUGIN_GUID}") != "1" || clientId == SteamManager.Instance.field_Private_CSteamID_1.m_SteamID;
+            => SteamManager.Instance.IsLobbyOwner() || string.IsNullOrEmpty(SteamMatchmaking.GetLobbyData(SteamManager.Instance.currentLobby, MyPluginInfo.PLUGIN_GUID)) || clientId == SteamManager.Instance.field_Private_CSteamID_1.m_SteamID;
 
         [HarmonyPatch(typeof(SteamManager), nameof(SteamManager.OnEnable))]
         [HarmonyPrefix]

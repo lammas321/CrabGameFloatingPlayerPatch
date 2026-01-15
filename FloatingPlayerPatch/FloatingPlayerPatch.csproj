@@ -1,52 +1,159 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <AssemblyName>FloatingPlayerPatch</AssemblyName>
-    <Version>1.2.0</Version>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <LangVersion>latest</LangVersion>
-    <DebugType>embedded</DebugType>
-    <Configurations>Debug;Release</Configurations>
-  </PropertyGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="BepInEx.IL2CPP" Version="6.0.0-*" IncludeAssets="compile" />
-    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.1.0" />
-  </ItemGroup>
-  
-  <Target Name="ClearReferenceCopyLocalPaths" AfterTargets="ResolveAssemblyReferences">
-    <ItemGroup>
-      <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" />
-    </ItemGroup>
-  </Target>
-  
-  <ItemGroup>
-    <Reference Include="0Harmony">
-      <HintPath>S:\SteamLibrary\steamapps\common\Crab Game\BepInEx\core\0Harmony.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>S:\SteamLibrary\steamapps\common\Crab Game\BepInEx\unhollowed\Assembly-CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>S:\SteamLibrary\steamapps\common\Crab Game\BepInEx\unhollowed\Assembly-CSharp-firstpass.dll</HintPath>
-    </Reference>
-    <Reference Include="Il2Cppmscorlib">
-      <HintPath>S:\SteamLibrary\steamapps\common\Crab Game\BepInEx\unhollowed\Il2Cppmscorlib.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>S:\SteamLibrary\steamapps\common\Crab Game\BepInEx\unhollowed\Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>S:\SteamLibrary\steamapps\common\Crab Game\BepInEx\unhollowed\UnityEngine.CoreModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.PhysicsModule">
-        <HintPath>S:\SteamLibrary\steamapps\common\Crab Game\BepInEx\unhollowed\UnityEngine.PhysicsModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>S:\SteamLibrary\steamapps\common\Crab Game\BepInEx\unhollowed\UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="ModList">
-      <HintPath>C:\Users\lamma\source\repos\Crab Game\General\ModList\bin\Release\netstandard2.1\ModList.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<LangVersion>latest</LangVersion>
+
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<AssemblyName>lammas123.FloatingPlayerPatch</AssemblyName>
+		<Product>FloatingPlayerPatch</Product>
+		<Version>1.3.0</Version>
+
+		<SteamDir Condition="'$(SteamDir)' == ''">S:\Steam</SteamDir>
+		<ProfileDir Condition="'$(ProfileDir)' == ''">S:\Steam\steamapps\common\Crab Game</ProfileDir>
+		<UnhollowedDir>$(ProfileDir)\BepInEx\unhollowed</UnhollowedDir>
+		<DepsDir Condition="'$(DepsDir)' == ''">C:\Users\lamma\source\repos\Crab Game</DepsDir>
+	</PropertyGroup>
+
+
+	<!-- Configurations -->
+	<PropertyGroup>
+		<Configurations>Debug;Release</Configurations>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>embedded</DebugType>
+
+		<!-- Trim the path to just include the project in stack traces -->
+		<PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))=./</PathMap>
+
+		<AutoLaunch>true</AutoLaunch>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
+		<DebugSymbols>false</DebugSymbols>
+		<DebugType>none</DebugType>
+
+		<!-- Trim the path to just include the project in stack traces -->
+		<PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))=./</PathMap>
+
+		<AutoLaunch>false</AutoLaunch>
+	</PropertyGroup>
+
+
+	<!-- Checks -->
+	<Target Name="CheckUnhollowed" BeforeTargets="ResolveAssemblyReferences">
+		<Error Condition="!Exists('$(UnhollowedDir)\Assembly-CSharp.dll')" Text="Unhollowed assemblies not found. Verify $(UnhollowedDir) (your .csproj's UnhollowedDir) is correct and run BepInEx Il2Cpp unhollowing first." />
+	</Target>
+
+	<Target Name="CheckDeps" BeforeTargets="ResolveAssemblyReferences" Condition="'$(DepsDir)' != ''">
+		<Error Condition="!Exists('$(DepsDir)')" Text="$(DepsDir) does not exist, correct your DepsDir within your .csproj." />
+	</Target>
+
+
+	<!-- Building -->
+	<ItemGroup>
+		<Compile Remove="Thunderstore\**" />
+		<EmbeddedResource Remove="Thunderstore\**" />
+		<None Remove="Thunderstore\**" />
+	</ItemGroup>
+	
+	<Target Name="ClearReferenceCopyLocalPaths" AfterTargets="ResolveAssemblyReferences">
+		<ItemGroup>
+			<ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" />
+		</ItemGroup>
+	</Target>
+
+	<Target Name="AutoLaunch" AfterTargets="PostBuildEvent" Condition="'$(AutoLaunch)' == 'true'">
+		<Exec Command="copy &quot;$(OutDir)$(AssemblyName).dll&quot; &quot;$(ProfileDir)\BepInEx\plugins\$(AssemblyName)\$(AssemblyName).dll&quot;" />
+		<Exec Command="$(SteamDir)\steam.exe steam://rungameid/1782210" />
+	</Target>
+
+	<Target Name="Thunderstore" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Release'">
+		<Exec Command="copy &quot;$(OutDir)$(AssemblyName).dll&quot; &quot;$(MSBuildProjectDirectory)\Thunderstore\$(Product)\BepInEx\plugins\$(AssemblyName).dll&quot;" Condition="Exists('$(MSBuildProjectDirectory)\Thunderstore\$(Product)\BepInEx\plugins')" />
+		<Warning Condition="!Exists('$(MSBuildProjectDirectory)\Thunderstore\$(Product)\BepInEx\plugins')" Text="The Thunderstore directory $(MSBuildProjectDirectory)\Thunderstore\$(Product)\BepInEx\plugins does not exist." />
+	</Target>
+
+
+	<!-- Dependencies -->
+	<ItemGroup>
+		<PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" PrivateAssets="all" Version="0.4.1">
+			<!-- Suppress CS0436: AssemblyPublicizer IgnoresAccessChecksToAttribute conflicts with MonoMod.Utils, this is safe to ignore -->
+			<NoWarn>$(NoWarn);CS0436</NoWarn>
+		</PackageReference>
+
+		<PackageReference Include="BepInEx.PluginInfoProps" Version="2.1.0" />
+
+		<PackageReference Include="BepInEx.IL2CPP" Version="6.0.0-*" />
+		<PackageReference Include="BepInEx.Preloader.Core" Version="6.0.0-*" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- BepInEx Assemblies -->
+		<Reference Include="0Harmony" Publicize="true">
+			<HintPath>$(ProfileDir)\BepInEx\core\0Harmony.dll</HintPath>
+		</Reference>
+
+		<!-- Game Assemblies -->
+		<Reference Include="Assembly-CSharp">
+			<HintPath>$(UnhollowedDir)\Assembly-CSharp.dll</HintPath>
+		</Reference>
+		<Reference Include="Assembly-CSharp-firstpass">
+			<HintPath>$(UnhollowedDir)\Assembly-CSharp-firstpass.dll</HintPath>
+		</Reference>
+
+		<!-- Il2Cpp Assemblies -->
+		<Reference Include="Il2Cppmscorlib">
+			<HintPath>$(UnhollowedDir)\Il2Cppmscorlib.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSystem">
+			<HintPath>$(UnhollowedDir)\Il2CppSystem.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSystem.Core">
+			<HintPath>$(UnhollowedDir)\Il2CppSystem.Core.dll</HintPath>
+		</Reference>
+
+		<!-- Other Mod Assemblies -->
+		<Reference Include="ModList">
+			<HintPath>$(DepsDir)\General\ModList\bin\Release\netstandard2.1\lammas123.ModList.dll</HintPath>
+		</Reference>
+
+		<!-- Unity Assemblies-->
+		<Reference Include="UnityEngine.AnimationModule">
+			<HintPath>$(UnhollowedDir)\UnityEngine.AnimationModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.AudioModule">
+			<HintPath>$(UnhollowedDir)\UnityEngine.AudioModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.CoreModule">
+			<HintPath>$(UnhollowedDir)\UnityEngine.CoreModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.InputLegacyModule">
+			<HintPath>$(UnhollowedDir)\UnityEngine.InputLegacyModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.ParticleSystemModule">
+			<HintPath>$(UnhollowedDir)\UnityEngine.ParticleSystemModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.PhysicsModule">
+			<HintPath>$(UnhollowedDir)\UnityEngine.PhysicsModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.TextRenderingModule">
+			<HintPath>$(UnhollowedDir)\UnityEngine.TextRenderingModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UI">
+			<HintPath>$(UnhollowedDir)\UnityEngine.UI.dll</HintPath>
+		</Reference>
+
+		<Reference Include="Unity.PostProcessing.Runtime">
+			<HintPath>$(UnhollowedDir)\Unity.PostProcessing.Runtime.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.TextMeshPro">
+			<HintPath>$(UnhollowedDir)\Unity.TextMeshPro.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 </Project>
