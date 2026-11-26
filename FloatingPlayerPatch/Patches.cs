@@ -30,8 +30,11 @@ namespace FloatingPlayerPatch
         [HarmonyPatch(typeof(ServerHandle), nameof(ServerHandle.PlayerPosition))]
         [HarmonyPrefix]
         [HarmonyPriority(Priority.Low)]
-        internal static bool PreServerHandlePlayerPosition(ulong param_0, Packet param_1)
+        internal static bool PreServerHandlePlayerPosition(ulong param_0, Packet param_1, bool __runOriginal)
         {
+            if (!__runOriginal)
+                return false;
+
             if (SteamManager.Instance.IsLobbyOwner())
             {
                 ServerSend.PlayerPosition(param_0, new(BitConverter.ToSingle(param_1.field_Private_ArrayOf_Byte_0, 8), BitConverter.ToSingle(param_1.field_Private_ArrayOf_Byte_0, 12), BitConverter.ToSingle(param_1.field_Private_ArrayOf_Byte_0, 16)));
@@ -44,8 +47,11 @@ namespace FloatingPlayerPatch
         [HarmonyPatch(typeof(ServerHandle), nameof(ServerHandle.PlayerRotation))]
         [HarmonyPrefix]
         [HarmonyPriority(Priority.Low)]
-        internal static bool PreServerHandlePlayerRotation(ulong param_0, Packet param_1)
+        internal static bool PreServerHandlePlayerRotation(ulong param_0, Packet param_1, bool __runOriginal)
         {
+            if (!__runOriginal)
+                return false;
+
             if (SteamManager.Instance.IsLobbyOwner())
             {
                 ServerSend.PlayerRotation(param_0, BitConverter.ToSingle(param_1.field_Private_ArrayOf_Byte_0, 8), BitConverter.ToSingle(param_1.field_Private_ArrayOf_Byte_0, 12));

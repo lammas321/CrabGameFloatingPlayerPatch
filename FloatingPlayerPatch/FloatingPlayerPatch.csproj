@@ -11,7 +11,7 @@
 	<PropertyGroup>
 		<AssemblyName>lammas123.FloatingPlayerPatch</AssemblyName>
 		<Product>FloatingPlayerPatch</Product>
-		<Version>1.4.0</Version>
+		<Version>1.4.1</Version>
 
 		<AutoLaunchDir Condition="'$(AutoLaunchDir)' == ''">lammas123-FloatingPlayerPatch</AutoLaunchDir>
 		<SteamPath Condition="'$(SteamPath)' == ''">S:/Steam/steam.exe</SteamPath>
@@ -44,7 +44,7 @@
 		<!-- Trim the path to just include the project in stack traces -->
 		<PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))=./</PathMap>
 
-		<AutoLaunch>true</AutoLaunch>
+		<AutoLaunch>false</AutoLaunch>
 	</PropertyGroup>
 
 
